@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="DyPE: Dynamic Position Extrapolation for Ultra High Resolution Diffusion - AUTHOR_NAMES">
+  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
+  <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
+  <meta property="og:title" content="PAPER_TITLE">
+  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
+  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">
+  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
+  <meta property="article:author" content="FIRST_AUTHOR_NAME">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="KEYWORD1">
+  <meta property="article:tag" content="KEYWORD2">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
+  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
+  <meta name="twitter:title" content="PAPER_TITLE">
+  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="PAPER_TITLE">
+  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
+  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_conference_title" content="CONFERENCE_NAME">
+  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>DyPE: Dynamic Position Extrapolation</title>
+
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="favicon.ico">
+
+<!--  &lt;!&ndash; Critical CSS - Load synchronously &ndash;&gt;-->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Critical CSS - Load synchronously -->
+<!--  <link rel="stylesheet" href="static/css/bulma.min.css">-->
+<!--  <link rel="stylesheet" href="static/css/index.css">-->
+
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Removed Adobe PDF viewer script since PDFs were removed -->
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "PAPER_TITLE",
+    "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "FIRST_AUTHOR_NAME",
+        "affiliation": { "@type": "Organization", "name": "INSTITUTION_NAME" }
+      },
+      {
+        "@type": "Person",
+        "name": "SECOND_AUTHOR_NAME",
+        "affiliation": { "@type": "Organization", "name": "INSTITUTION_NAME" }
+      }
+    ],
+    "datePublished": "2024-01-01",
+    "publisher": { "@type": "Organization", "name": "CONFERENCE_OR_JOURNAL_NAME" },
+    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
+    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
+    "abstract": "FULL_ABSTRACT_TEXT_HERE",
+    "citation": "BIBTEX_CITATION_HERE",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": { "@type": "WebPage", "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE" },
+    "about": [ { "@type": "Thing", "name": "RESEARCH_AREA_1" }, { "@type": "Thing", "name": "RESEARCH_AREA_2" } ]
+  }
+  </script>
+
+  <!-- Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "INSTITUTION_OR_LAB_NAME",
+    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
+    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/YOUR_TWITTER_HANDLE",
+      "https://github.com/YOUR_GITHUB_USERNAME"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">DyPE: Dynamic Position Extrapolation for Ultra High Resolution Diffusion</h1>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=Lh0grhUAAAAJ" target="_blank">Noam Issachar</a><sup>*</sup>,</span>
+                <span class="author-block">
+                  <a href="https://guyyariv.github.io/" target="_blank">Guy Yariv</a><sup>*</sup>,</span>
+                <span class="author-block">
+                  <a href="https://sagiebenaim.github.io/" target="_blank">Sagie Benaim</a>,</span>
+                <span class="author-block">
+                  <a href="https://www.cs.huji.ac.il/~adiyoss/" target="_blank">Yossi Adi</a>,</span>
+                <span class="author-block">
+                  <a href="https://www.cs.huji.ac.il/~danix/" target="_blank">Dani Lischinski</a>,</span>
+                <span class="author-block">
+                  <a href="https://www.cs.huji.ac.il/w~raananf/" target="_blank">Raanan Fattal</a>
+                </span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">The Hebrew University of Jerusalem<br></span>
+                <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                       class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+
+<!--                  <span class="link-block">-->
+<!--                    <a href="static/pdfs/supplementary_material.pdf" target="_blank"-->
+<!--                       class="external-link button is-normal is-rounded is-dark">-->
+<!--                      <span class="icon"><i class="fas fa-file-pdf"></i></span>-->
+<!--                      <span>Supplementary</span>-->
+<!--                    </a>-->
+<!--                  </span>-->
+
+                  <span class="link-block">
+  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+     class="external-link button is-normal is-rounded is-dark">
+    <span class="icon"><i class="ai ai-arxiv"></i></span>
+    <span>arXiv</span>
+  </a>
+</span>
+
+<span class="link-block">
+  <a href="https://github.com/YOUR REPO HERE" target="_blank"
+     class="external-link button is-normal is-rounded is-dark">
+    <span class="icon"><i class="fab fa-github"></i></span>
+    <span>Code</span>
+  </a>
+</span>
+                </div>
+              </div>
+
+            </div> <!-- column -->
+          </div> <!-- columns -->
+        </div> <!-- container -->
+      </div> <!-- hero-body -->
+    </section>
+
+<!--&lt;!&ndash; Image carousel &ndash;&gt;-->
+<!--<section class="hero is-small">-->
+<!--  <div class="hero-body">-->
+<!--    <div class="container">-->
+<!--      <div id="results-carousel" class="carousel results-carousel">-->
+<!--        <div class="item">-->
+<!--          <img src="static/images/carousel1.png" alt="Research result 1" loading="lazy" />-->
+<!--          <h2 class="subtitle has-text-centered">Result 1 description.</h2>-->
+<!--        </div>-->
+<!--        <div class="item">-->
+<!--          <img src="static/images/carousel2.png" alt="Research result 2" loading="lazy" />-->
+<!--          <h2 class="subtitle has-text-centered">Result 2 description.</h2>-->
+<!--        </div>-->
+<!--        <div class="item">-->
+<!--          <img src="static/images/carousel3.png" alt="Research result 3" loading="lazy" />-->
+<!--          <h2 class="subtitle has-text-centered">Result 3 description.</h2>-->
+<!--        </div>-->
+<!--        <div class="item">-->
+<!--          <img src="static/images/carousel4.png" alt="Research result 4" loading="lazy" />-->
+<!--          <h2 class="subtitle has-text-centered">Result 4 description.</h2>-->
+<!--        </div>-->
+<!--        <div class="item">-->
+<!--          <img src="static/images/carousel5.png" alt="Research result 5" loading="lazy" />-->
+<!--          <h2 class="subtitle has-text-centered">Result 5 description.</h2>-->
+<!--        </div>-->
+<!--        <div class="item">-->
+<!--          <img src="static/images/carousel6.png" alt="Research result 6" loading="lazy" />-->
+<!--          <h2 class="subtitle has-text-centered">Result 6 description.</h2>-->
+<!--        </div>-->
+<!--        <div class="item">-->
+<!--          <img src="static/images/carousel7.png" alt="Research result 7" loading="lazy" />-->
+<!--          <h2 class="subtitle has-text-centered">Result 7 description.</h2>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!--&lt;!&ndash; End image carousel &ndash;&gt;-->
+
+    <!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item"><img src="static/images/carousel1.png" alt="Result 1" /></div>
+        <div class="item"><img src="static/images/carousel2.png" alt="Result 2" /></div>
+        <div class="item"><img src="static/images/carousel3.png" alt="Result 3" /></div>
+        <div class="item"><img src="static/images/carousel4.png" alt="Result 4" /></div>
+        <div class="item"><img src="static/images/carousel5.png" alt="Result 5" /></div>
+        <div class="item"><img src="static/images/carousel6.png" alt="Result 6" /></div>
+        <div class="item"><img src="static/images/carousel7.png" alt="Result 7" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End image carousel -->
+
+
+
+<!-- TL;DR summary -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+        <div class="content has-text-justified">
+<!--          <p>-->
+<!--            <strong>DyPE (Dynamic Position Extrapolation)</strong> is a training-free approach that enables pre-trained diffusion transformers to synthesize ultra-high-resolution images far beyond their training data.-->
+<!--            By dynamically adjusting positional encodings across diffusion steps to match the evolving frequency spectrum, DyPE achieves faithful 4Kx4K generation without retraining or extra sampling cost.-->
+<!--          </p>-->
+
+          <p>
+  <strong>DyPE (Dynamic Position Extrapolation)</strong> enables pre-trained diffusion transformers to generate ultra-high-resolution images far beyond their training scale.
+  It dynamically adjusts positional encodings during denoising to match evolving frequency content—achieving faithful <strong>4K × 4K</strong> results without retraining or extra sampling cost.
+</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End TL;DR summary -->
+
+
+<!-- Paper abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Diffusion Transformer models can generate images with remarkable fidelity and detail, yet training them at ultra-high resolutions remains extremely costly due to the self-attention mechanism's quadratic scaling with the number of image tokens. In this paper, we introduce Dynamic Position Extrapolation (DyPE), a novel, training-free method that enables pre-trained diffusion transformers to synthesize images at resolutions far beyond their training data, with no additional sampling cost. DyPE takes advantage of the spectral progression inherent to the diffusion process, where low-frequency structures converge early, while high-frequencies take more steps to resolve. Specifically, DyPE dynamically adjusts the model's positional encoding at each diffusion step, matching their frequency spectrum with the current stage of the generative process. This approach allows us to generate images at resolutions that exceed the training resolution dramatically, e.g., 16 million pixels using FLUX. On multiple benchmarks, DyPE consistently improves performance and achieves state-of-the-art fidelity in ultra-high-resolution image generation, with gains becoming even more pronounced at higher resolutions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Comparisons (4K × 4K) -->
+<section class="section" id="comparisons">
+  <div class="container is-max-desktop">
+<!--    <h2 class="title is-3 has-text-centered">Comparisons (4K × 4K)</h2>-->
+<!--    <p class="has-text-centered" style="margin-bottom:1.5rem; color:#64748b;">-->
+<!--      Side-by-side results on identical prompts. Click any image to open the full-resolution version in a new tab.-->
+<!--    </p>-->
+
+<h2 class="title is-3 has-text-centered">FLUX vs. FLUX + DyPE Comparisons</h2>
+<p class="has-text-centered" style="margin-bottom:1rem; color:#64748b;">
+  Each pair shows the original <strong>FLUX</strong> result (left) and our <strong>FLUX + DyPE</strong> version (right).
+</p>
+<p class="has-text-centered" style="margin-bottom:1.5rem; color:#94a3b8; font-size:0.95rem;">
+  Click any image to open the full-resolution version in a new tab.
+</p>
+
+
+    <div class="cmp-grid">
+      <!-- Pair 1 -->
+      <figure class="cmp-pair">
+        <div class="cmp-images">
+          <a class="cmp-card" href="static/images/compare/prompt1_flux_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt1_flux_4k.png" alt="Prompt 1 — FLUX 4096×4096" loading="lazy">
+            <span class="cmp-label">FLUX · 4096×4096</span>
+          </a>
+          <a class="cmp-card" href="static/images/compare/prompt1_dype_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt1_dype_4k.png" alt="Prompt 1 — DyPE 4096×4096" loading="lazy">
+            <span class="mc-label mc-label-ours">DyPE · 4096×4096</span>
+          </a>
+        </div>
+        <figcaption class="cmp-caption">
+          “A white church with a golden dome stands against a bright blue sky, featuring arched windows and a cross on top, while a solitary figure walks nearby.”
+        </figcaption>
+      </figure>
+
+      <!-- Pair 2 -->
+      <figure class="cmp-pair">
+        <div class="cmp-images">
+          <a class="cmp-card" href="static/images/compare/prompt2_flux_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt2_flux_4k.png" alt="Prompt 2 — FLUX 4096×4096" loading="lazy">
+            <span class="cmp-label">FLUX · 4096×4096</span>
+          </a>
+          <a class="cmp-card" href="static/images/compare/prompt2_dype_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt2_dype_4k.png" alt="Prompt 2 — DyPE 4096×4096" loading="lazy">
+            <span class="mc-label mc-label-ours">DyPE · 4096×4096</span>
+          </a>
+        </div>
+        <figcaption class="cmp-caption">
+          “Neon signs illuminate a rainy street filled with people, a person in a white raincoat cycling, others walk with umbrellas and a man sits by a food stand.”
+        </figcaption>
+      </figure>
+
+      <!-- Pair 3 -->
+      <figure class="cmp-pair">
+        <div class="cmp-images">
+          <a class="cmp-card" href="static/images/compare/prompt3_flux_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt3_flux_4k.png" alt="Prompt 3 — FLUX 4096×4096" loading="lazy">
+            <span class="cmp-label">FLUX · 4096×4096</span>
+          </a>
+          <a class="cmp-card" href="static/images/compare/prompt3_dype_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt3_dype_4k.png" alt="Prompt 3 — DyPE 4096×4096" loading="lazy">
+            <span class="mc-label mc-label-ours">DyPE · 4096×4096</span>
+          </a>
+        </div>
+        <figcaption class="cmp-caption">
+          “A muscular, bald man holds a flower above his head with both arms, set against a soft circular background in black and white.”
+        </figcaption>
+      </figure>
+
+      <!-- Pair 4 -->
+      <figure class="cmp-pair">
+        <div class="cmp-images">
+          <a class="cmp-card" href="static/images/compare/prompt4_flux_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt4_flux_4k.png" alt="Prompt 4 — FLUX 4096×4096" loading="lazy">
+            <span class="cmp-label">FLUX · 4096×4096</span>
+          </a>
+          <a class="cmp-card" href="static/images/compare/prompt4_dype_4k.png" target="_blank" rel="noopener">
+            <img src="static/images/compare/prompt4_dype_4k.png" alt="Prompt 4 — DyPE 4096×4096" loading="lazy">
+            <span class="mc-label mc-label-ours">DyPE · 4096×4096</span>
+          </a>
+        </div>
+        <figcaption class="cmp-caption">
+             “A gray pitcher with a handle filled with white flowers sits on a wooden surface beside three lemons and a small petal.”
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<!-- End Comparisons -->
+
+
+<!-- How DyPE Works -->
+<section class="section" id="how-dype-works">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">How DyPE Works?</h2>
+
+    <!-- Motivation -->
+    <div class="content lead-blurb">
+      <p>
+        Training diffusion transformers at ultra-high resolutions is costly, and static positional
+        extrapolation ignores diffusion’s <em>low&nbsp;→&nbsp;high</em> frequency progression.
+        DyPE makes extrapolation <strong>time-aware</strong> to match how content emerges during denoising.
+      </p>
+    </div>
+
+    <!-- Two-step story + variants -->
+    <div class="columns is-multiline how-cards">
+      <div class="column is-12">
+        <div class="how-card">
+          <h3 class="how-step">Key Observation</h3>
+          <p>
+            Early steps stabilize <strong>low-frequency structure</strong>; later steps refine
+            <strong>high-frequency detail</strong>. DyPE follows this progression instead of using a fixed
+            spectrum allocation throughout sampling.
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-12">
+        <div class="how-card">
+          <h3 class="how-step">Step-Aware Scaling &kappa;(t)</h3>
+          <p>
+            DyPE introduces a scheduler <code>&kappa;(t) = &lambda;<sub>s</sub> &middot; t<sup>&lambda;<sub>t</sub></sup></code>
+            that decays from strong scaling at the beginning to <em>no scaling</em> near the end. Intuition:
+            early: emphasize global structure; late: restore high-frequency capacity.
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-12">
+        <div class="how-card">
+          <h3 class="how-step">Plug-and-Play Variants</h3>
+          <ul class="compact-list">
+            <li><strong>DY-NTK</strong>: frequency-aware scaling where the NTK exponent is multiplied by
+              <code>&kappa;(t)</code>, relaxing toward the original training PE late in sampling.</li>
+            <li><strong>DY-YaRN</strong>: YaRN’s ramps are moved toward <em>no scaling</em> via a scheduler
+              <code>&kappa;(t)</code>, with YaRN’s attention-temperature tweak retained.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Method Comparison (5 methods per row) -->
+<section class="section" id="method-comparison">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method Comparison (4K × 4K)</h2>
+    <p class="has-text-centered" style="margin-bottom:1.25rem; color:#64748b;">
+      Each row shows the same prompt rendered by five methods: <strong>FLUX</strong>, <strong>NTK</strong>, <strong>Dy-NTK (ours)</strong>, <strong>YaRN</strong>, and <strong>Dy-YaRN (ours)</strong>.
+    </p>
+    <p class="has-text-centered" style="margin-bottom:1.75rem; color:#94a3b8; font-size:0.95rem;">
+      Click any image to open the full-resolution version in a new tab.
+    </p>
+
+    <!-- Row 1 -->
+    <figure class="mc-row">
+      <div class="mc-grid">
+        <a class="mc-card" href="static/images/methods/row1_flux_4k.png" target="_blank"><img src="static/images/methods/row1_flux_4k.png" alt="FLUX"><span class="mc-label">FLUX</span></a>
+        <a class="mc-card" href="static/images/methods/row1_ntk_4k.png" target="_blank"><img src="static/images/methods/row1_ntk_4k.png" alt="NTK"><span class="mc-label">NTK</span></a>
+        <a class="mc-card" href="static/images/methods/row1_dyntk_4k.png" target="_blank"><img src="static/images/methods/row1_dyntk_4k.png" alt="Dy-NTK (ours)"><span class="mc-label mc-label-ours">Dy-NTK (ours)</span></a>
+        <a class="mc-card" href="static/images/methods/row1_yarn_4k.png" target="_blank"><img src="static/images/methods/row1_yarn_4k.png" alt="YaRN"><span class="mc-label">YaRN</span></a>
+        <a class="mc-card" href="static/images/methods/row1_dyyarn_4k.png" target="_blank"><img src="static/images/methods/row1_dyyarn_4k.png" alt="Dy-YaRN (ours)"><span class="mc-label mc-label-ours">Dy-YaRN (ours)</span></a>
+      </div>
+      <figcaption class="mc-caption has-text-centered" style="margin-top:1rem; color:#64748b;">
+        "Woman with short hair and black dress stands in a forest, holding an owl with large, outstretched wings. The sunlight filters through the trees, highlighting her tattoo and the owl's detailed feathers."
+      </figcaption>
+    </figure>
+
+    <!-- Row 2 -->
+    <figure class="mc-row">
+      <div class="mc-grid">
+        <a class="mc-card" href="static/images/methods/row2_flux_4k.png" target="_blank"><img src="static/images/methods/row2_flux_4k.png" alt="FLUX"><span class="mc-label">FLUX</span></a>
+        <a class="mc-card" href="static/images/methods/row2_ntk_4k.png" target="_blank"><img src="static/images/methods/row2_ntk_4k.png" alt="NTK"><span class="mc-label">NTK</span></a>
+        <a class="mc-card" href="static/images/methods/row2_dyntk_4k.png" target="_blank"><img src="static/images/methods/row2_dyntk_4k.png" alt="Dy-NTK (ours)"><span class="mc-label mc-label-ours">Dy-NTK (ours)</span></a>
+        <a class="mc-card" href="static/images/methods/row2_yarn_4k.png" target="_blank"><img src="static/images/methods/row2_yarn_4k.png" alt="YaRN"><span class="mc-label">YaRN</span></a>
+        <a class="mc-card" href="static/images/methods/row2_dyyarn_4k.png" target="_blank"><img src="static/images/methods/row2_dyyarn_4k.png" alt="Dy-YaRN (ours)"><span class="mc-label mc-label-ours">Dy-YaRN (ours)</span></a>
+      </div>
+      <figcaption class="mc-caption has-text-centered" style="margin-top:1rem; color:#64748b;">
+        “A man with an afro hairstyle wears futuristic reflective sunglasses and a coat with fur lining, standing in front of a vibrant pink and blue neon sign.”
+      </figcaption>
+    </figure>
+
+    <!-- Row 3 -->
+    <figure class="mc-row">
+      <div class="mc-grid">
+        <a class="mc-card" href="static/images/methods/row3_flux_4k.png" target="_blank"><img src="static/images/methods/row3_flux_4k.png" alt="FLUX"><span class="mc-label">FLUX</span></a>
+        <a class="mc-card" href="static/images/methods/row3_ntk_4k.png" target="_blank"><img src="static/images/methods/row3_ntk_4k.png" alt="NTK"><span class="mc-label">NTK</span></a>
+        <a class="mc-card" href="static/images/methods/row3_dyntk_4k.png" target="_blank"><img src="static/images/methods/row3_dyntk_4k.png" alt="Dy-NTK (ours)"><span class="mc-label mc-label-ours">Dy-NTK (ours)</span></a>
+        <a class="mc-card" href="static/images/methods/row3_yarn_4k.png" target="_blank"><img src="static/images/methods/row3_yarn_4k.png" alt="YaRN"><span class="mc-label">YaRN</span></a>
+        <a class="mc-card" href="static/images/methods/row3_dyyarn_4k.png" target="_blank"><img src="static/images/methods/row3_dyyarn_4k.png" alt="Dy-YaRN (ours)"><span class="mc-label mc-label-ours">Dy-YaRN (ours)</span></a>
+      </div>
+      <figcaption class="mc-caption has-text-centered" style="margin-top:1rem; color:#64748b;">
+        "A stone archway covered in ivy leads into misty forest, lined with lush greenery and ferns, mushrooms grow at the base of trees. Sunlight filters through the canopy, creating a serene atmosphere."
+      </figcaption>
+    </figure>
+  </div>
+</section>
+<!-- End Method Comparison -->
+
+    <!-- Patent notice -->
+<section class="section" id="patent-notice">
+  <div class="container is-max-desktop has-text-centered" style="margin-bottom:-2rem;">
+    <p style="color:#64748b; font-size:0.95rem;">
+
+        <em>This work is patent pending.
+For commercial use or licensing inquiries, please contact the
+        <a href="mailto:noam.issachar@mail.huji.ac.il?subject=DyPE%20licensing%20inquiry&body=Hi%20Noam%2C%0A%0AI%27m%20reaching%20out%20regarding%20commercial%20use%20of%20DyPE.%0A%0ACompany%3A%0AUse%20case%3A%0ATimeline%3A%0A%0AThanks%2C%0A"
+           style="color:#2563eb; text-decoration:underline;">
+          authors
+        </a>.
+      </em>
+    </p>
+  </div>
+</section>
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
+  title={Your Paper Title Here},
+  author={First Author and Second Author and Third Author},
+  journal={Conference/Journal Name},
+  year={2024},
+  url={https://your-domain.com/your-project-page}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+<!--              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br>-->
+              This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter (optional) -->
+
+</body>
+</html>
